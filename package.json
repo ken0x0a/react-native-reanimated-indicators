@@ -1,12 +1,17 @@
 {
   "name": "react-native-reanimated-indicators",
   "version": "1.0.0",
-  "description": "non ui blocking indicators for react-native",
+  "description": "non ui blocking indicators for react-native using reanimated",
   "main": "src/index.ts",
   "files": [
     "src/*"
   ],
-  "author": "ken0x0a+117118@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ken0x0a/react-native-reanimated-indicators.git"
+  },
+  "homepage": "https://github.com/ken0x0a/react-native-reanimated-indicators#readme",
+  "author": "Ken Owada",
   "license": "MIT",
   "private": true,
   "prettier": "@ken0x0a/prettier-config",
