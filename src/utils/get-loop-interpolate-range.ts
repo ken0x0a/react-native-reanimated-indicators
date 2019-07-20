@@ -13,16 +13,40 @@ export function getLoopInterpolateRanges({
   count,
   calcOutputRange,
 }: GetLoopInterpolateRangesOptions) {
-  /**
-   * [0..count]
-   */
-  const inputRange = range(count + 1).map((__, idx) => idx / count)
+  const inputRange = getLoopInterpolateInputRange({ count })
 
-  /**
-   * []
-   */
-  const outputRange = range(count).map((__, idx) => calcOutputRange(idx))
-  outputRange.unshift(outputRange.slice(-1)[0])
+  const outputRange = getLoopInterpolateOutputRange({ count, calcRange: calcOutputRange })
 
   return { inputRange, outputRange }
+}
+
+interface GetLoopInterpolateInputRangesOptions {
+  count: number
+}
+/**
+ * [0..count]
+ */
+export function getLoopInterpolateInputRange({ count }: GetLoopInterpolateInputRangesOptions) {
+  return range(count + 1).map((__, idx) => idx / count)
+}
+
+interface GetLoopInterpolateOutputRangesOptions {
+  /**
+   * - number
+   * - ~~string => color | degrees~~
+   */
+  calcRange: (positionIndex: number) => number // string
+  count: number
+}
+/**
+ * []
+ */
+export function getLoopInterpolateOutputRange({
+  count,
+  calcRange,
+}: GetLoopInterpolateOutputRangesOptions) {
+  const outputRange = range(count).map((__, idx) => calcRange(idx))
+  outputRange.unshift(outputRange.slice(-1)[0])
+
+  return outputRange
 }
