@@ -1,6 +1,6 @@
 import React, { ReactNode, useMemo } from 'react'
 import { StyleProp, StyleSheet, View, ViewProps, ViewStyle } from 'react-native'
-import Animated from 'react-native-reanimated'
+import Animated, { Easing } from 'react-native-reanimated'
 import {
   ReanimatedLoopState as LoopState,
   useLoop,
@@ -13,12 +13,31 @@ const { interpolate } = Animated
 
 interface BallIndicatorProps extends UseLoopProps, ViewProps {
   animating?: Animated.Value<LoopState>
+  /**
+   * @default 'black'
+   */
   color?: string
   containerStyle?: StyleProp<ViewStyle>
+  /**
+   * @default 8
+   */
   count?: number
+  /**
+   * @default 10
+   */
   dotSize?: number
+  /**
+   * @default Easing.linear
+   */
   easing?: Animated.EasingFunction
+  /**
+   * @default 1000
+   */
   interval?: number
+  /**
+   * size of the indicator
+   * @default 52
+   */
   size?: number
 }
 
@@ -26,10 +45,10 @@ export const BallIndicator: React.FC<BallIndicatorProps> = ({
   // animating
   animating,
   interval = 1000,
-  easing,
+  easing = Easing.linear,
   // dot
   color: backgroundColor = 'black',
-  size = 40,
+  size = 52,
   dotSize = 10,
   count = 8,
   // container View
@@ -43,7 +62,6 @@ export const BallIndicator: React.FC<BallIndicatorProps> = ({
   const dots = useMemo<ReactNode>(() => {
     const ballStyle = {
       backgroundColor,
-      bottom: size / 20,
       borderRadius: dotSize / 2,
       height: dotSize,
       width: dotSize,
@@ -54,6 +72,7 @@ export const BallIndicator: React.FC<BallIndicatorProps> = ({
 
       const rotate = {
         transform: [{ rotateZ: `${angle}deg` }],
+        alignItems: 'center' as 'center',
       }
 
       const count_m1 = count - 1
@@ -79,7 +98,7 @@ export const BallIndicator: React.FC<BallIndicatorProps> = ({
         </Animated.View>
       )
     })
-  }, [backgroundColor, size, dotSize, count, animation.position])
+  }, [backgroundColor, dotSize, count, animation.position])
 
   return (
     <View style={[styles.container, containerStyle]}>

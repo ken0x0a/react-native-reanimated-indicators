@@ -36,12 +36,30 @@ interface IndicatorEnableProps {
 }
 interface DotIndicatorProps extends UseLoopOptions, ViewProps, IndicatorEnableProps {
   animating?: Animated.Value<LoopState>
+  /**
+   * @default 'black'
+   */
   color?: string
   containerStyle?: StyleProp<ViewStyle>
+  /**
+   * @default 3
+   */
   count?: number
+  /**
+   * @default 4
+   */
   dotMargin?: number
+  /**
+   * @default 9
+   */
   dotSize?: number
+  /**
+   * @default Easing.bezier(0.3, 0.01, 0.3, 0.15)
+   */
   easing?: Animated.EasingFunction
+  /**
+   * @default 1000
+   */
   interval?: number
 }
 
