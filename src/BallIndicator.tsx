@@ -25,7 +25,7 @@ interface BallIndicatorProps extends UseLoopProps, ViewProps {
 export const BallIndicator: React.FC<BallIndicatorProps> = ({
   // animating
   animating,
-  interval,
+  interval = 1000,
   easing,
   // dot
   color: backgroundColor = 'black',
