@@ -1,0 +1,26 @@
+{
+  "name": "react-native-reanimated-indicators",
+  "version": "1.0.0",
+  "description": "non ui blocking indicators for react-native",
+  "main": "src/index.ts",
+  "files": [
+    "src/*"
+  ],
+  "author": "ken0x0a+117118@gmail.com",
+  "license": "MIT",
+  "private": true,
+  "prettier": "@ken0x0a/prettier-config",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-reanimated": "^1.0.0"
+  },
+  "dependencies": {
+    "react-native-reanimated-hooks": "^1.0.0"
+  },
+  "devDependencies": {
+    "@ken0x0a/eslint-config": "^1.0.2",
+    "@ken0x0a/prettier-config": "^1.0.0",
+    "@ken0x0a/tsconfig": "^1.0.0"
+  }
+}
