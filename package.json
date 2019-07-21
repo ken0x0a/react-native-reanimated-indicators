@@ -2,9 +2,13 @@
   "name": "react-native-reanimated-indicators",
   "version": "0.0.0-development",
   "description": "non ui blocking indicators for react-native using reanimated",
-  "main": "src/index.ts",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "lib/module/index.js",
+  "types": "lib/typescript/src/index.d.ts",
   "files": [
-    "src/*"
+    "lib/",
+    "src/"
   ],
   "repository": {
     "type": "git",
@@ -16,6 +20,12 @@
   "private": true,
   "prettier": "@ken0x0a/prettier-config",
   "scripts": {
+    "lint": "eslint --ext .ts,.tsx --report-unused-disable-directives src --cache",
+    "type-check": "tsc --noEmit",
+    "type-check-ci": "tsc --incremental --outDir './build'",
+    "test": "yarn run type-check && yarn run lint",
+    "prepare": "bob build",
+    "tsw": "tsc --noEmit --watch",
     "semantic-release": "semantic-release"
   },
   "peerDependencies": {
@@ -30,6 +40,23 @@
     "@ken0x0a/eslint-config": "^1.0.2",
     "@ken0x0a/prettier-config": "^1.0.0",
     "@ken0x0a/tsconfig": "^1.0.0",
-    "semantic-release": "^15.13.18"
+    "@ken0x0a/tslint-config": "^1.0.0",
+    "@react-native-community/bob": "0.6.1",
+    "@types/react": "16.8.23",
+    "@types/react-native": "0.60.2",
+    "react": "16.8.6",
+    "react-native": "0.59.8",
+    "react-native-reanimated": "1.0.1",
+    "semantic-release": "^15.13.18",
+    "typescript": "3.5.3"
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }

@@ -1,3 +1,10 @@
 {
-  "extends": "@ken0x0a/tsconfig"
+  "extends": "@ken0x0a/tsconfig",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "noEmit": false,
+    "jsx": "react-native",
+    "allowSyntheticDefaultImports": true
+  }
 }
