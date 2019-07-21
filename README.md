@@ -1,3 +1,5 @@
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 Non JS thread blocking indicator components for React Native.
 
 There is [the awesome indicators library (react-native-indicators)][react-native-indicators] from long time ago.
@@ -19,6 +21,7 @@ But, as `Animated` from `react-native` contact with JS thread when animation is 
 ```sh
 yarn add react-native-reanimated-indicators
 ```
+
 
 ## Components
 
