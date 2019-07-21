@@ -16,20 +16,6 @@ const { interpolate } = Animated
 
 const defaultEasing = Easing.bezier(0.3, 0.01, 0.3, 0.15)
 
-type AnimateStyle<S extends object> = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [K in keyof S]: S[K] extends ReadonlyArray<any>
-    ? AnimateStyle<S[K][0]>[]
-    : S[K] extends object
-    ? AnimateStyle<S[K]>
-    :
-        | S[K]
-        | Animated.Node<
-            // allow `number` where `string` normally is to support colors
-            S[K] extends string ? S[K] | number : S[K]
-          >
-}
-
 interface IndicatorEnableProps {
   opacityEnabled?: boolean
   scaleEnabled?: boolean
@@ -96,7 +82,7 @@ export const DotIndicator: React.FC<DotIndicatorProps> = ({
       const count_m1 = count - 1
       const inputRange = getLoopInterpolateInputRange({ count })
 
-      const transform: AnimateStyle<ViewStyle>['transform'] = []
+      const transform: AnimateStyle<Required<ViewStyle>['transform']> = []
       if (scaleEnabled) {
         transform.push({
           scale: interpolate(animation.position, {
@@ -119,9 +105,13 @@ export const DotIndicator: React.FC<DotIndicatorProps> = ({
               }),
             })
           : undefined,
-        transform,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        transform: transform as any,
       }
 
+      /**
+       * @use `any` as `AnimatedStyle` went wrong somehow
+       */
       // eslint-disable-next-line react/no-array-index-key
       return <Animated.View style={[dotStyle, animStyle]} key={index} />
     })
@@ -142,3 +132,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 })
+
+// FOLLOWING CODE SHOULD BE REMOVED RIGHT AFTER reanimated start exporting `AnimateStyle`
+type AnimateStyle<S extends object> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [K in keyof S]: S[K] extends ReadonlyArray<any>
+    ? AnimateStyle<S[K][0]>[]
+    : S[K] extends any[] // eslint-disable-line @typescript-eslint/no-explicit-any
+    ? AnimateStyle<S[K][0]>[]
+    : S[K] extends object
+    ? AnimateStyle<S[K]>
+    :
+        | S[K]
+        | Animated.Node<
+            // allow `number` where `string` normally is to support colors
+            S[K] extends string ? S[K] | number : S[K]
+          >
+}
