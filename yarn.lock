@@ -649,10 +649,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@ken0x0a/eslint-config@^1.0.2":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@ken0x0a/eslint-config/-/eslint-config-1.0.3.tgz#323f440195d1b43d7b044980d1b61ae93de75490"
-  integrity sha512-WW18oRh3HDhJZZte/aSkWR5H5CqlbUCEAI0naYCnX1+A0JR/7jz1CHPLX9snC0+h7RzhWIjwHH9pO4zK+ZJtdA==
+"@ken0x0a/eslint-config@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ken0x0a/eslint-config/-/eslint-config-2.0.0.tgz#07d432cbe60c1a114db2bce6e867fed58666170e"
+  integrity sha512-ErWVpLbs/7O5dhqIMdL9sVM6+A9TTArZ28hnJPIEYFBjQ2Ww8c1/DvFswWvC7SKfOHaRGqMQsLlwj7WocPvkoQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "1.12.0"
     "@typescript-eslint/eslint-plugin-tslint" "1.12.0"
@@ -6845,15 +6845,15 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
-react-native-reanimated-hooks@1.0.0:
+react-native-reanimated-hooks@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated-hooks/-/react-native-reanimated-hooks-1.0.0.tgz#9c712454faa4e7e03c1e6a426f3feecbe3654ef5"
   integrity sha512-hJOSO84ErpZglPh42zx3pQnhvR54RBkKtU104lFvUac89hcBSujgFgbcyg63QPzr08tDZkunqhkkkWTwSPhrWg==
 
-react-native-reanimated@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.1.0.tgz#ba6864055ec3a206cdd5209a293fe653ce276206"
-  integrity sha512-UGDVNfvuIkMqYUx6aytSzihuzv6sWubn0MQi8dRcw7BjgezhjJnVnJ/NSOcpL3cO+Ld7lFcRX6GKcskwkHdPkw==
+react-native-reanimated@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.0.1.tgz#5ecb6a2f6dad0351077ac9b771ca943b7ad6feda"
+  integrity sha512-RENoo6/sJc3FApP7vJ1Js7WyDuTVh97bbr5aMjJyw3kqpR2/JDHyL/dQFfOvSSAc+VjitpR9/CfPPad7tLRiIA==
 
 react-native@0.59.8:
   version "0.59.8"

@@ -37,7 +37,7 @@
     "react-native-reanimated-hooks": "^1.0.0"
   },
   "devDependencies": {
-    "@ken0x0a/eslint-config": "^1.0.2",
+    "@ken0x0a/eslint-config": "^2.0.0",
     "@ken0x0a/prettier-config": "^1.0.0",
     "@ken0x0a/tsconfig": "^1.0.0",
     "@ken0x0a/tslint-config": "^1.0.0",
