@@ -17,7 +17,6 @@
   "homepage": "https://github.com/ken0x0a/react-native-reanimated-indicators#readme",
   "author": "Ken Owada",
   "license": "MIT",
-  "private": true,
   "prettier": "@ken0x0a/prettier-config",
   "scripts": {
     "lint": "eslint --ext .ts,.tsx --report-unused-disable-directives src --cache",
