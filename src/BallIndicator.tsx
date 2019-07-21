@@ -4,14 +4,14 @@ import Animated, { Easing } from 'react-native-reanimated'
 import {
   ReanimatedLoopState as LoopState,
   useLoop,
-  UseLoopProps,
+  UseLoopOptions,
 } from 'react-native-reanimated-hooks'
 import { range } from './utils/array'
 import { getLoopInterpolateRanges } from './utils/get-loop-interpolate-range'
 
 const { interpolate } = Animated
 
-interface BallIndicatorProps extends UseLoopProps, ViewProps {
+interface BallIndicatorProps extends UseLoopOptions, ViewProps {
   animating?: Animated.Value<LoopState>
   /**
    * @default 'black'
