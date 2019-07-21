@@ -5,7 +5,7 @@
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "react-native": "lib/module/index.js",
-  "types": "lib/typescript/src/index.d.ts",
+  "types": "lib/typescript/index.d.ts",
   "files": [
     "lib/",
     "src/"
@@ -34,7 +34,7 @@
     "react-native-reanimated": "^1.0.0"
   },
   "dependencies": {
-    "react-native-reanimated-hooks": "^1.0.0"
+    "react-native-reanimated-hooks": "^1.1.0"
   },
   "devDependencies": {
     "@ken0x0a/eslint-config": "^2.0.0",
@@ -44,9 +44,7 @@
     "@react-native-community/bob": "0.6.1",
     "@types/react": "16.8.23",
     "@types/react-native": "0.60.2",
-    "react": "16.8.6",
-    "react-native": "0.59.8",
-    "react-native-reanimated": "1.0.1",
+    "react-native-reanimated": "^1.0.1",
     "semantic-release": "^15.13.18",
     "typescript": "3.5.3"
   },
