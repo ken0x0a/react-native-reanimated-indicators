@@ -44,7 +44,7 @@
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.1.tar.gz",
     "react-native-reanimated": "^1.1.0",
-    "semantic-release": "^15.13.18",
+    "semantic-release": "^15.13.21",
     "typescript": "3.5.3"
   },
   "@react-native-community/bob": {
