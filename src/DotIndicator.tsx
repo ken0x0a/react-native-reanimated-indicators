@@ -83,7 +83,7 @@ export const DotIndicator: React.FC<DotIndicatorProps> = ({
       const inputRange = getLoopInterpolateInputRange({ count })
 
       const transform: AnimateStyle<Required<ViewStyle>['transform']> = []
-      if (scaleEnabled) {
+      if (scaleEnabled)
         transform.push({
           scale: interpolate(animation.position, {
             inputRange,
@@ -93,7 +93,6 @@ export const DotIndicator: React.FC<DotIndicatorProps> = ({
             }),
           }),
         })
-      }
 
       const animStyle = {
         opacity: opacityEnabled
@@ -105,14 +104,13 @@ export const DotIndicator: React.FC<DotIndicatorProps> = ({
               }),
             })
           : undefined,
+        /**
+         * @use `any` as `AnimatedStyle` went wrong somehow
+         */
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         transform: transform as any,
       }
 
-      /**
-       * @use `any` as `AnimatedStyle` went wrong somehow
-       */
-      // eslint-disable-next-line react/no-array-index-key
       return <Animated.View style={[dotStyle, animStyle]} key={index} />
     })
   }, [backgroundColor, dotMargin, dotSize, count, scaleEnabled, opacityEnabled, animation.position])
@@ -136,7 +134,7 @@ const styles = StyleSheet.create({
 // FOLLOWING CODE SHOULD BE REMOVED RIGHT AFTER reanimated start exporting `AnimateStyle`
 type AnimateStyle<S extends object> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [K in keyof S]: S[K] extends ReadonlyArray<any>
+  [K in keyof S]: S[K] extends readonly any[]
     ? AnimateStyle<S[K][0]>[]
     : S[K] extends any[] // eslint-disable-line @typescript-eslint/no-explicit-any
     ? AnimateStyle<S[K][0]>[]

@@ -92,7 +92,6 @@ export const BallIndicator: React.FC<BallIndicatorProps> = ({
       }
 
       return (
-        // eslint-disable-next-line react/no-array-index-key
         <Animated.View style={[StyleSheet.absoluteFill, rotate]} key={index}>
           <Animated.View style={[ballStyle, ballAnimStyle]} />
         </Animated.View>
