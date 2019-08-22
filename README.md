@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/ken0x0a/react-native-reanimated-indicators/tree/master.svg?style=svg)](https://circleci.com/gh/ken0x0a/react-native-reanimated-indicators/tree/master)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Non JS thread blocking indicator components for React Native.
@@ -7,12 +8,12 @@ But, as `Animated` from `react-native` contact with JS thread when animation is 
 
 ---
 
-- [Usage](#Usage)
-- [Components](#Components)
-  - [1. `<BallIndicator />`](#1-BallIndicator)
-  - [2. `<DotIndicator />`](#2-DotIndicator)
-- [Status](#Status)
-- [Why I created this library](#Why-I-created-this-library)
+- [Usage](#usage)
+- [Components](#components)
+  - [1. `<BallIndicator />`](#1-ballindicator)
+  - [2. `<DotIndicator />`](#2-dotindicator)
+- [Status](#status)
+- [Why I created this library](#why-i-created-this-library)
 
 ---
 
