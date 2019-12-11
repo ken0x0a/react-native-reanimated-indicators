@@ -30,22 +30,22 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-reanimated": "^1.1.0"
+    "react-native-reanimated": "^1.4.0"
   },
   "dependencies": {
     "react-native-reanimated-hooks": "^1.1.0"
   },
   "devDependencies": {
-    "@ken0x0a/configs": "2.5.3",
-    "@ken0x0a/eslint-config-react-deps": "6.1.2",
-    "@react-native-community/bob": "0.6.1",
-    "@types/react": "16.8.23",
-    "@types/react-native": "0.60.5",
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.1.tar.gz",
-    "react-native-reanimated": "^1.1.0",
-    "semantic-release": "^15.13.21",
-    "typescript": "3.5.3"
+    "@ken0x0a/configs": "2.5.25",
+    "@ken0x0a/eslint-config-react-deps": "6.1.7",
+    "@react-native-community/bob": "0.7.0",
+    "@types/react": "16.9.16",
+    "@types/react-native": "0.60.25",
+    "react": "16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-reanimated": "^1.4.0",
+    "semantic-release": "^15.13.31",
+    "typescript": "3.7.3"
   },
   "@react-native-community/bob": {
     "source": "src",
