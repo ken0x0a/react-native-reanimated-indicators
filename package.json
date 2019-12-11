@@ -33,10 +33,10 @@
     "react-native-reanimated": "^1.4.0"
   },
   "dependencies": {
-    "react-native-reanimated-hooks": "^1.1.0"
+    "react-native-reanimated-hooks": "^2.0.0"
   },
   "devDependencies": {
-    "@ken0x0a/configs": "2.5.25",
+    "@ken0x0a/configs": "2.5.27",
     "@ken0x0a/eslint-config-react-deps": "6.1.7",
     "@react-native-community/bob": "0.7.0",
     "@types/react": "16.9.16",
