@@ -1,6 +1,6 @@
 import { range } from './array'
 
-interface GetLoopInterpolateRangesOptions {
+type GetLoopInterpolateRangesOptions = {
   /**
    * - number
    * - ~~string => color | degrees~~
@@ -9,10 +9,14 @@ interface GetLoopInterpolateRangesOptions {
   count: number
 }
 
+type GetLoopInterpolateRangesResult = {
+  inputRange: number[]
+  outputRange: number[]
+}
 export function getLoopInterpolateRanges({
   count,
   calcOutputRange,
-}: GetLoopInterpolateRangesOptions) {
+}: GetLoopInterpolateRangesOptions): GetLoopInterpolateRangesResult {
   const inputRange = getLoopInterpolateInputRange({ count })
 
   const outputRange = getLoopInterpolateOutputRange({ count, calcRange: calcOutputRange })
@@ -24,9 +28,11 @@ interface GetLoopInterpolateInputRangesOptions {
   count: number
 }
 /**
- * [0..count]
+ * @return [0..count]
  */
-export function getLoopInterpolateInputRange({ count }: GetLoopInterpolateInputRangesOptions) {
+export function getLoopInterpolateInputRange({
+  count,
+}: GetLoopInterpolateInputRangesOptions): number[] {
   return range(count + 1).map((__, idx) => idx / count)
 }
 
@@ -44,7 +50,7 @@ interface GetLoopInterpolateOutputRangesOptions {
 export function getLoopInterpolateOutputRange({
   count,
   calcRange,
-}: GetLoopInterpolateOutputRangesOptions) {
+}: GetLoopInterpolateOutputRangesOptions): number[] {
   const outputRange = range(count).map((__, idx) => calcRange(idx))
   outputRange.unshift(outputRange.slice(-1)[0])
 
