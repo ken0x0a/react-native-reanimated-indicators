@@ -39,6 +39,8 @@
     "@ken0x0a/configs": "^2.8.3",
     "@ken0x0a/eslint-config-react-deps": "^6.3.1",
     "@react-native-community/bob": "0.17.1",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/react": "^18.0.25",
     "@types/react-native": "0.70",
     "react": "18.1.0",
