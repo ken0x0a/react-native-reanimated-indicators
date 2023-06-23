@@ -2,8 +2,7 @@ import type { ReactNode } from "react";
 import React, { useMemo } from "react";
 import type { StyleProp, ViewProps, ViewStyle } from "react-native";
 import { StyleSheet } from "react-native";
-import Animated, { EasingNode as Easing, interpolateNode as interpolate } from "react-native-reanimated";
-import type { ReanimatedLoopState as LoopState, UseLoopOptions } from "react-native-reanimated-hooks";
+import Animated, { Easing, interpolate, useAnimatedStyle } from "react-native-reanimated";
 import { useLoop } from "react-native-reanimated-hooks";
 import { range } from "./utils/array";
 import {
@@ -11,40 +10,41 @@ import {
   getLoopInterpolateOutputRange,
 } from "./utils/get-loop-interpolate-range";
 
-const defaultEasing = Easing.bezier(0.3, 0.01, 0.3, 0.15);
+const defaultEasing = Easing.bezier(0.3, 0.01, 0.3, 0.15).factory();
 
-interface IndicatorEnableProps {
+type IndicatorEnableProps = {
   opacityEnabled?: boolean;
   scaleEnabled?: boolean;
-}
-interface DotIndicatorProps extends UseLoopOptions, ViewProps, IndicatorEnableProps {
-  animating?: Animated.Value<LoopState>;
-  /**
-   * @default 'black'
-   */
-  color?: string;
-  containerStyle?: StyleProp<ViewStyle>;
-  /**
-   * @default 3
-   */
-  count?: number;
-  /**
-   * @default 4
-   */
-  dotMargin?: number;
-  /**
-   * @default 9
-   */
-  dotSize?: number;
-  /**
-   * @default Easing.bezier(0.3, 0.01, 0.3, 0.15)
-   */
-  easing?: Animated.EasingNodeFunction;
-  /**
-   * @default 1000
-   */
-  interval?: number;
-}
+};
+type DotIndicatorProps = ViewProps &
+  IndicatorEnableProps & {
+    animating?: boolean;
+    /**
+     * @default 'black'
+     */
+    color?: string;
+    containerStyle?: StyleProp<ViewStyle>;
+    /**
+     * @default 3
+     */
+    count?: number;
+    /**
+     * @default 4
+     */
+    dotMargin?: number;
+    /**
+     * @default 9
+     */
+    dotSize?: number;
+    /**
+     * @default Easing.bezier(0.3, 0.01, 0.3, 0.15)
+     */
+    easing?: Animated.EasingFunction;
+    /**
+     * @default 1000
+     */
+    interval?: number;
+  };
 
 export function DotIndicator({
   // animating
@@ -76,47 +76,67 @@ export function DotIndicator({
     };
 
     return range(count).map((_, index) => {
-      const count_m1 = count - 1;
       const inputRange = getLoopInterpolateInputRange({ count });
-
-      const transform: AnimateStyle<Required<ViewStyle>["transform"]> = [];
-      if (scaleEnabled)
-        transform.push({
-          scale: interpolate(animation.position, {
-            inputRange,
-            outputRange: getLoopInterpolateOutputRange({
-              count,
-              calcRange: (idx) => 1.0 - (0.46 / count_m1) * ((count_m1 + index - idx) % count),
-            }),
-          }),
-        });
-
-      const animStyle = {
-        opacity: opacityEnabled
-          ? interpolate(animation.position, {
-              inputRange,
-              outputRange: getLoopInterpolateOutputRange({
-                count,
-                calcRange: (idx) => 1 - 0.55 * (((count_m1 + index - idx) % count) / count) ** 0.14,
-              }),
-            })
-          : undefined,
-        /**
-         * @use `any` as `AnimatedStyle` went wrong somehow
-         */
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
-        transform: transform as any,
-      };
-
-      return <Animated.View style={[dotStyle, animStyle]} key={index} />;
+      return (
+        <Dot
+          key={index}
+          style={dotStyle}
+          value={animation.value}
+          {...{ index, count, inputRange, scaleEnabled, opacityEnabled }}
+        />
+      );
     });
-  }, [backgroundColor, dotMargin, dotSize, count, scaleEnabled, opacityEnabled, animation.position]);
+  }, [backgroundColor, dotMargin, dotSize, count, scaleEnabled, opacityEnabled, animation.value]);
 
   return (
     <Animated.View style={[styles.container, containerStyle]} {...viewProps}>
       {dots}
     </Animated.View>
   );
+}
+
+type DotProps = {
+  style: StyleProp<Animated.AnimateStyle<StyleProp<ViewStyle>>>;
+  index: number;
+  count: number;
+  value: Animated.SharedValue<number>;
+  scaleEnabled: boolean;
+  opacityEnabled: boolean;
+  inputRange: number[];
+};
+function Dot({ style, index, count, value, scaleEnabled, opacityEnabled, inputRange }: DotProps) {
+  const animStyle = useAnimatedStyle(() => {
+    const count_m1 = count - 1;
+
+    const transform: Animated.AnimateStyle<Required<ViewStyle>>["transform"] = [];
+    if (scaleEnabled)
+      transform.push({
+        scale: interpolate(
+          value.value,
+          inputRange,
+          getLoopInterpolateOutputRange({
+            count,
+            calcRange: (idx) => 1.0 - (0.46 / count_m1) * ((count_m1 + index - idx) % count),
+          }),
+        ),
+      });
+
+    return {
+      opacity: opacityEnabled
+        ? interpolate(
+            value.value,
+            inputRange,
+            getLoopInterpolateOutputRange({
+              count,
+              calcRange: (idx) => 1 - 0.55 * (((count_m1 + index - idx) % count) / count) ** 0.14,
+            }),
+          )
+        : undefined,
+      transform,
+    } satisfies Animated.AnimateStyle<StyleProp<ViewStyle>>;
+  }, []);
+
+  return <Animated.View style={[style, animStyle]} />;
 }
 
 const styles = StyleSheet.create({
@@ -127,20 +147,3 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 });
-
-// FOLLOWING CODE SHOULD BE REMOVED RIGHT AFTER reanimated start exporting `AnimateStyle`
-type AnimateStyle<S extends object> = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [K in keyof S]: S[K] extends readonly any[]
-    ? AnimateStyle<S[K][0]>[]
-    : S[K] extends any[] // eslint-disable-line @typescript-eslint/no-explicit-any
-    ? AnimateStyle<S[K][0]>[]
-    : S[K] extends object
-    ? AnimateStyle<S[K]>
-    :
-        | S[K]
-        | Animated.Node<
-            // allow `number` where `string` normally is to support colors
-            S[K] extends string ? S[K] | number : S[K]
-          >;
-};

@@ -1,15 +1,14 @@
 import type { ReactNode } from "react";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import type { StyleProp, ViewProps, ViewStyle } from "react-native";
 import { StyleSheet, View } from "react-native";
-import Animated, { EasingNode as Easing, interpolateNode as interpolate } from "react-native-reanimated";
-import type { ReanimatedLoopState as LoopState, UseLoopOptions } from "react-native-reanimated-hooks";
+import Animated, { Easing, interpolate, useAnimatedStyle } from "react-native-reanimated";
 import { useLoop } from "react-native-reanimated-hooks";
 import { range } from "./utils/array";
 import { getLoopInterpolateRanges } from "./utils/get-loop-interpolate-range";
 
-interface BallIndicatorProps extends UseLoopOptions, ViewProps {
-  animating?: Animated.Value<LoopState>;
+type BallIndicatorProps = ViewProps & {
+  animating?: boolean;
   /**
    * @default 'black'
    */
@@ -26,7 +25,7 @@ interface BallIndicatorProps extends UseLoopOptions, ViewProps {
   /**
    * @default Easing.linear
    */
-  easing?: Animated.EasingNodeFunction;
+  easing?: Animated.EasingFunction;
   /**
    * @default 1000
    */
@@ -36,10 +35,9 @@ interface BallIndicatorProps extends UseLoopOptions, ViewProps {
    * @default 52
    */
   size?: number;
-}
+};
 
 export function BallIndicator({
-  // animating
   animating,
   interval = 1000,
   easing = Easing.linear,
@@ -56,7 +54,7 @@ export function BallIndicator({
 }: BallIndicatorProps) {
   const animation = useLoop({ animating, interval, easing });
 
-  const dots = useMemo<ReactNode>(() => {
+  const balls = useMemo<ReactNode>(() => {
     const ballStyle = {
       backgroundColor,
       borderRadius: dotSize / 2,
@@ -65,37 +63,49 @@ export function BallIndicator({
     };
 
     return range(count).map((_, index) => {
-      const angle = (index * 360) / count;
-
-      const rotate = {
-        transform: [{ rotateZ: `${angle}deg` }],
-        alignItems: "center" as const,
-      };
-
-      const count_m1 = count - 1;
-      const interpolationRanges = getLoopInterpolateRanges({
-        count,
-        calcOutputRange: (idx) => 1.0 - (0.46 / count_m1) * ((idx + count_m1 - index) % count),
-      });
-
-      const ballAnimStyle = {
-        transform: [{ scale: interpolate(animation.position, interpolationRanges) }],
-      };
-
-      return (
-        <Animated.View style={[StyleSheet.absoluteFill, rotate]} key={index}>
-          <Animated.View style={[ballStyle, ballAnimStyle]} />
-        </Animated.View>
-      );
+      return <Ball key={index} style={ballStyle} value={animation.value} {...{ index, count }} />;
     });
-  }, [backgroundColor, dotSize, count, animation.position]);
+  }, [backgroundColor, dotSize, count, animation.value]);
 
   return (
     <View style={[styles.container, containerStyle]}>
       <Animated.View style={[{ width: size, height: size }, style]} {...viewProps}>
-        {dots}
+        {balls}
       </Animated.View>
     </View>
+  );
+}
+
+type BallProps = {
+  style: StyleProp<Animated.AnimateStyle<StyleProp<ViewStyle>>>;
+  index: number;
+  count: number;
+  value: Animated.SharedValue<number>;
+};
+function Ball({ style, index, count, value }: BallProps) {
+  const angle = (index * 360) / count;
+
+  const rotate = {
+    transform: [{ rotateZ: `${angle}deg` }],
+    alignItems: "center" as const,
+  };
+
+  const ballAnimStyle = useAnimatedStyle(() => {
+    const count_m1 = count - 1;
+    const interpolationRanges = getLoopInterpolateRanges({
+      count,
+      calcOutputRange: (idx) => 1.0 - (0.46 / count_m1) * ((idx + count_m1 - index) % count),
+    });
+    return {
+      transform: [
+        { scale: interpolate(value.value, interpolationRanges.inputRange, interpolationRanges.outputRange) },
+      ],
+    };
+  }, [value]);
+  return (
+    <Animated.View style={[StyleSheet.absoluteFill, rotate]}>
+      <Animated.View style={[style, ballAnimStyle]} />
+    </Animated.View>
   );
 }
 
