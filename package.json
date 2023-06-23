@@ -1,6 +1,6 @@
 {
   "name": "react-native-reanimated-indicators",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "non ui blocking indicators for react-native using reanimated",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
