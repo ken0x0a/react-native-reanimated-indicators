@@ -33,21 +33,21 @@
     "react-native-reanimated": ">2.0.0"
   },
   "dependencies": {
-    "react-native-reanimated-hooks": "^3.0.0"
+    "react-native-reanimated-hooks": "^4.0.0"
   },
   "devDependencies": {
-    "@ken0x0a/configs": "^2.8.3",
-    "@ken0x0a/eslint-config-react-deps": "^6.3.1",
+    "@ken0x0a/configs": "^2.8.5",
+    "@ken0x0a/eslint-config-react-deps": "^6.3.2",
     "@react-native-community/bob": "0.17.1",
-    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@types/react": "^18.0.25",
+    "@types/react": "^18.2.13",
     "@types/react-native": "0.70",
-    "react": "18.1.0",
-    "react-native": "0.70.5",
-    "react-native-reanimated": "^2.12.0",
+    "react": "18.2.0",
+    "react-native": "0.72.0",
+    "react-native-reanimated": "^3.3.0",
     "semantic-release": "^19.0.5",
-    "typescript": "4.8.4"
+    "typescript": "5.1.3"
   },
   "@react-native-community/bob": {
     "source": "src",
